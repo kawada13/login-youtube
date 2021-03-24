@@ -10,7 +10,9 @@ const routes = new VueRouter({
   routes: [
     {
       path: '/',
-      component: 'Home'
+      component: Home
     }
   ]
 })
+
+export default routes;
