@@ -7,7 +7,11 @@
     </head>
     <body>
         <div id="app">
-          <router-view></router-view>
+          <v-app>
+            <v-container>
+              <router-view></router-view>
+            </v-container>
+          </v-app>
         </div>
 
         <script src="{{ asset('js/app.js') }}"></script>
