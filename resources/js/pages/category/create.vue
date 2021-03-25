@@ -31,7 +31,6 @@
       <Loader />
     </div>
     
-
   </div>
 </template>
 
