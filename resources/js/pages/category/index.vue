@@ -3,12 +3,13 @@
 
     <v-card color="grey lighten-2">
       <div class="justify-space-around d-flex">
-       <v-card-title>Cafe Badilico</v-card-title>
+       <v-card-title>Product Category</v-card-title>
        <v-card-title>
          <v-btn
         outlined
         rounded
         color="primary"
+        @click="$router.push({ name: 'create-category' })"
       >
         Create Category
       </v-btn>
