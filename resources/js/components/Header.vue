@@ -24,7 +24,13 @@
         >
         Home
         </v-toolbar-title>
-      <v-toolbar-title class="ml-5">Link</v-toolbar-title>
+      <v-toolbar-title 
+        class="ml-5"
+        style="cursor: pointer" 
+        @click="$router.push({ name: 'category-list' })"
+        >
+        Product Category  
+        </v-toolbar-title>
 
       <!-- <v-btn icon>
         <v-icon>mdi-heart</v-icon>
