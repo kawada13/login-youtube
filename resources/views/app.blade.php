@@ -8,8 +8,9 @@
     <body>
         <div id="app">
           <v-app>
-            <v-container>
-              <router-view></router-view>
+              <app-header class="mb-3 "></app-header>
+              <v-container>
+               <router-view></router-view>
             </v-container>
           </v-app>
         </div>
