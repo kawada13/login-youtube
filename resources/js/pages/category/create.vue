@@ -38,6 +38,15 @@
     <div v-show="error">
       すでに登録されている名前です
     </div>
+
+
+   <!-- <div v-show="isSaved"> -->
+     <Snackbar 
+     :isSaved='isSaved'
+     :message='message'
+     />
+   <!-- </div> -->
+
     
   </div>
 </template>
@@ -50,7 +59,9 @@ export default {
     return {
       loading: false,
       createName:'',
-      error: false
+      error: false,
+      message: '',
+      isSaved: false
     }
   },
   components: {
@@ -59,16 +70,31 @@ export default {
   methods: {
     upload() {
       this.error = false
-      axios.post('/api/category', {name: this.createName})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(e => {
-          console.log(e.response.status)
-          if(e.response.status == 500) {
-            this.error = true
-          }
+
+      if (!this.$refs.form.validate()) return
+
+      if (this.$refs.form.validate()) {
+        axios.post('/api/category', {name: this.createName})
+        .then(res => {
+          console.log(res);
+          this.createName = '';
+          this.message = '保存しました'
+          this.isSaved = true
+          this.$refs.form.resetValidation()
         })
+        .catch(e => {
+            console.log(e.response.status)
+            if(e.response.status == 500) {
+              this.error = true
+              this.message = '入力形式に不適切な箇所があり保存できません。'
+              this.isSaved = true
+            }
+        })
+        // .finally(() => {
+        //   this.isSaved = false
+        // });
+      }
+      
     },
     load() {
       this.loading = !this.loading
