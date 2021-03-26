@@ -2151,11 +2151,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      loading: false
+      loading: false,
+      createName: '',
+      error: false
     };
   },
   components: {
@@ -2163,7 +2173,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     upload: function upload() {
-      console.log(111);
+      var _this = this;
+
+      this.error = false;
+      axios.post('/api/category', {
+        name: this.createName
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](function (e) {
+        console.log(e.response.status);
+
+        if (e.response.status == 500) {
+          _this.error = true;
+        }
+      });
     },
     load: function load() {
       this.loading = !this.loading;
@@ -38836,17 +38859,29 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
+                  return _vm.upload($event)
                 }
               }
             },
             [
-              _c("v-text-field", { attrs: { placeholder: "Category name" } }),
+              _c("v-text-field", {
+                attrs: {
+                  placeholder: "Category name",
+                  rules: [_vm.formRules.required]
+                },
+                model: {
+                  value: _vm.createName,
+                  callback: function($$v) {
+                    _vm.createName = $$v
+                  },
+                  expression: "createName"
+                }
+              }),
               _vm._v(" "),
               _c(
                 "v-btn",
                 {
-                  attrs: { color: "green darken-1", dark: "" },
-                  on: { click: _vm.upload }
+                  attrs: { color: "green darken-1", dark: "", type: "submit" }
                 },
                 [_vm._v("Create Category")]
               )
@@ -38881,6 +38916,21 @@ var render = function() {
         },
         [_c("Loader")],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.error,
+              expression: "error"
+            }
+          ]
+        },
+        [_vm._v("\n    すでに登録されている名前です\n  ")]
       )
     ],
     1
@@ -100445,20 +100495,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _plugins_vuetify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugins/vuetify */ "./resources/js/plugins/vuetify.js");
-/* harmony import */ var _router_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router/index */ "./resources/js/router/index.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _plugins_validation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/validation */ "./resources/js/plugins/validation.js");
+/* harmony import */ var _router_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./router/index */ "./resources/js/router/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 
 
  // vuetify.jsを読み込み
 
+ // validation.jsを読み込み
+
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('app-header', __webpack_require__(/*! ./components/Header.vue */ "./resources/js/components/Header.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(_plugins_validation__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app',
   vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_2__["default"],
-  router: _router_index__WEBPACK_IMPORTED_MODULE_3__["default"],
-  store: _store__WEBPACK_IMPORTED_MODULE_4__["default"]
+  router: _router_index__WEBPACK_IMPORTED_MODULE_4__["default"],
+  store: _store__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 
 /***/ }),
@@ -100850,6 +100904,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_6d07bcac___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/plugins/validation.js":
+/*!********************************************!*\
+  !*** ./resources/js/plugins/validation.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install: function install(vue) {
+    console.log('Installing validation plugin..');
+    vue.mixin({
+      computed: {
+        formRules: {
+          get: function get() {
+            return {
+              required: function required(v) {
+                return !!v || 'この項目は必須です';
+              }
+            };
+          }
+        }
+      }
+    });
+  }
+});
 
 /***/ }),
 
