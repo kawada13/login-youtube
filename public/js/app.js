@@ -2253,7 +2253,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(res);
           _this.createName = '';
           _this.message = '保存しました';
-          _this.isSaved = true;
+          _this.isSaved = true; // バリデーションエラー解除
 
           _this.$refs.form.resetValidation();
         })["catch"](function (e) {
@@ -101222,13 +101222,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _product__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./product */ "./resources/js/store/product.js");
+/* harmony import */ var _snackbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./snackbar */ "./resources/js/store/snackbar.js");
+
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    product: _product__WEBPACK_IMPORTED_MODULE_2__["default"]
+    product: _product__WEBPACK_IMPORTED_MODULE_2__["default"],
+    snackbar: _snackbar__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
@@ -101239,6 +101242,29 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*!***************************************!*\
   !*** ./resources/js/store/product.js ***!
   \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var state = {};
+var getters = {};
+var mutations = {};
+var actions = {};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/snackbar.js":
+/*!****************************************!*\
+  !*** ./resources/js/store/snackbar.js ***!
+  \****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

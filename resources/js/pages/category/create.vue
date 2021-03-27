@@ -80,6 +80,7 @@ export default {
           this.createName = '';
           this.message = '保存しました'
           this.isSaved = true
+          // バリデーションエラー解除
           this.$refs.form.resetValidation()
         })
         .catch(e => {
