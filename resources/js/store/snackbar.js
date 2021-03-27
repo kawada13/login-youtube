@@ -1,4 +1,6 @@
-const state = {}
+const state = {
+  test: 'テスト文字です'
+}
 
 const getters = {}
 

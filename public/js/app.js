@@ -101270,7 +101270,9 @@ var actions = {};
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var state = {};
+var state = {
+  test: 'テスト文字です'
+};
 var getters = {};
 var mutations = {};
 var actions = {};
