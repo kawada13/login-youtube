@@ -2135,11 +2135,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })), {}, {
     snackbarVisible: {
       get: function get() {
-        console.log(22);
         return this.$store.state.snackbar.isSaved;
       },
       set: function set() {
-        console.log(11);
         return this.$store.dispatch('snackbar/snackOff');
       }
     }
@@ -2238,8 +2236,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loading: false,
       createName: '',
       error: false,
-      message: '' // isSaved: false
-
+      message: ''
     };
   },
   components: {
@@ -2250,7 +2247,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       this.error = false;
-      if (!this.$refs.form.validate()) return;
+      this.loading = true;
+
+      if (!this.$refs.form.validate()) {
+        this.loading = false;
+        return;
+      }
 
       if (this.$refs.form.validate()) {
         axios.post('/api/category', {
@@ -2272,6 +2274,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.setMessage();
 
           _this.snackOn();
+
+          _this.loading = false;
         });
       }
     },

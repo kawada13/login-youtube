@@ -32,11 +32,9 @@
     ),
     snackbarVisible: {
       get() {
-        console.log(22);
         return this.$store.state.snackbar.isSaved
       },
       set() {
-        console.log(11);
         return this.$store.dispatch('snackbar/snackOff')
       }
     }

@@ -57,7 +57,6 @@ export default {
       createName:'',
       error: false,
       message: '',
-      // isSaved: false
     }
   },
   components: {
@@ -66,8 +65,12 @@ export default {
   methods: {
     upload() {
       this.error = false
+      this.loading = true
 
-      if (!this.$refs.form.validate()) return
+      if (!this.$refs.form.validate()) {
+          this.loading = false
+          return
+        }
 
       if (this.$refs.form.validate()) {
         axios.post('/api/category', {name: this.createName})
@@ -88,6 +91,7 @@ export default {
         .finally(() => {
           this.setMessage()
           this.snackOn()
+          this.loading = false
         });
       }
     },
