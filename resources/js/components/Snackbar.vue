@@ -1,15 +1,8 @@
 <template>
   <div class="text-center">
-    <!-- <v-btn
-      dark
-      color="orange darken-2"
-      @click="snackbar = true"
-    >
-      Open Snackbar
-    </v-btn> -->
 
     <v-snackbar
-      v-model="isSaved"
+      v-model="snackbarVisible"
       :timeout="timeout"
       color="success"
       outlined
@@ -25,21 +18,28 @@
 
 
 <script>
+
+  import { mapState, mapActions } from "vuex"
+
   export default {
-    props: {
-      isSaved: {
-        type: Boolean,
-        default: false,
-        required: true
-      },
-      message: {
-        type: String,
-        default: '',
-        required: true
-      }
-    },
     data: () => ({
       timeout: 1500,
     }),
+    computed: {
+    ...mapState(
+      "snackbar",
+      { message: state => state.message },
+    ),
+    snackbarVisible: {
+      get() {
+        console.log(22);
+        return this.$store.state.snackbar.isSaved
+      },
+      set() {
+        console.log(11);
+        return this.$store.dispatch('snackbar/snackOff')
+      }
+    }
+   },
   }
 </script>

@@ -2095,6 +2095,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2114,31 +2121,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    isSaved: {
-      type: Boolean,
-      "default": false,
-      required: true
-    },
-    message: {
-      type: String,
-      "default": '',
-      required: true
-    }
-  },
   data: function data() {
     return {
       timeout: 1500
     };
-  }
+  },
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("snackbar", {
+    message: function message(state) {
+      return state.message;
+    }
+  })), {}, {
+    snackbarVisible: {
+      get: function get() {
+        console.log(22);
+        return this.$store.state.snackbar.isSaved;
+      },
+      set: function set() {
+        console.log(11);
+        return this.$store.dispatch('snackbar/snackOff');
+      }
+    }
+  })
 });
 
 /***/ }),
@@ -2172,13 +2177,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Loader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Loader.vue */ "./resources/js/components/Loader.vue");
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2226,20 +2231,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       loading: false,
       createName: '',
       error: false,
-      message: '',
-      isSaved: false
+      message: '' // isSaved: false
+
     };
   },
   components: {
     Loader: _components_Loader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  methods: {
+  methods: _objectSpread({
     upload: function upload() {
       var _this = this;
 
@@ -2252,8 +2258,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           console.log(res);
           _this.createName = '';
-          _this.message = '保存しました';
-          _this.isSaved = true; // バリデーションエラー解除
+          _this.message = '保存しました'; // バリデーションエラー解除
 
           _this.$refs.form.resetValidation();
         })["catch"](function (e) {
@@ -2262,17 +2267,23 @@ __webpack_require__.r(__webpack_exports__);
           if (e.response.status == 500) {
             _this.error = true;
             _this.message = '入力形式に不適切な箇所があり保存できません。';
-            _this.isSaved = true;
           }
-        }); // .finally(() => {
-        //   this.isSaved = false
-        // });
+        })["finally"](function () {
+          _this.setMessage();
+
+          _this.snackOn();
+        });
       }
     },
     load: function load() {
       this.loading = !this.loading;
     }
-  }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("snackbar", {
+    snackOn: 'snackOn',
+    setMessage: function setMessage(dispatch) {
+      dispatch("setMessage", this.message);
+    }
+  }))
 });
 
 /***/ }),
@@ -38870,11 +38881,11 @@ var render = function() {
             right: true
           },
           model: {
-            value: _vm.isSaved,
+            value: _vm.snackbarVisible,
             callback: function($$v) {
-              _vm.isSaved = $$v
+              _vm.snackbarVisible = $$v
             },
-            expression: "isSaved"
+            expression: "snackbarVisible"
           }
         },
         [_vm._v("\n    " + _vm._s(_vm.message) + "\n  ")]
@@ -39024,16 +39035,6 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "v-btn",
-        {
-          staticClass: "mt-5",
-          attrs: { color: "primary", dark: "" },
-          on: { click: _vm.load }
-        },
-        [_vm._v("Load")]
-      ),
-      _vm._v(" "),
-      _c(
         "div",
         {
           directives: [
@@ -39064,7 +39065,7 @@ var render = function() {
         [_vm._v("\n    すでに登録されている名前です\n  ")]
       ),
       _vm._v(" "),
-      _c("Snackbar", { attrs: { isSaved: _vm.isSaved, message: _vm.message } })
+      _c("Snackbar")
     ],
     1
   )
@@ -101271,11 +101272,35 @@ var actions = {};
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var state = {
-  test: 'テスト文字です'
+  isSaved: false,
+  message: ''
 };
 var getters = {};
-var mutations = {};
-var actions = {};
+var mutations = {
+  ableSaved: function ableSaved(state) {
+    state.isSaved = true;
+  },
+  disableSaved: function disableSaved(state) {
+    state.isSaved = false;
+  },
+  setMessage: function setMessage(state, message) {
+    state.message = message;
+  }
+};
+var actions = {
+  snackOn: function snackOn(_ref) {
+    var commit = _ref.commit;
+    commit("ableSaved");
+  },
+  snackOff: function snackOff(_ref2) {
+    var commit = _ref2.commit;
+    commit("disableSaved");
+  },
+  setMessage: function setMessage(_ref3, message) {
+    var commit = _ref3.commit;
+    commit('setMessage', message);
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: state,

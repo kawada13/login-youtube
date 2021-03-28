@@ -30,29 +30,25 @@
       </v-form>
     </div>
 
-    <v-btn color="primary" dark @click="load" class="mt-5">Load</v-btn>
 
     <div v-show="loading">
       <Loader />
     </div>
+
     <div v-show="error">
       すでに登録されている名前です
     </div>
 
+      <Snackbar />
 
-   <!-- <div v-show="isSaved"> -->
-     <Snackbar 
-     :isSaved='isSaved'
-     :message='message'
-     />
-   <!-- </div> -->
-
-    
   </div>
 </template>
 
 <script>
 import Loader from '../../components/Loader.vue'
+
+import { mapState, mapActions } from "vuex"
+
 
 export default {
   data() {
@@ -61,7 +57,7 @@ export default {
       createName:'',
       error: false,
       message: '',
-      isSaved: false
+      // isSaved: false
     }
   },
   components: {
@@ -79,7 +75,6 @@ export default {
           console.log(res);
           this.createName = '';
           this.message = '保存しました'
-          this.isSaved = true
           // バリデーションエラー解除
           this.$refs.form.resetValidation()
         })
@@ -88,19 +83,25 @@ export default {
             if(e.response.status == 500) {
               this.error = true
               this.message = '入力形式に不適切な箇所があり保存できません。'
-              this.isSaved = true
             }
         })
-        // .finally(() => {
-        //   this.isSaved = false
-        // });
+        .finally(() => {
+          this.setMessage()
+          this.snackOn()
+        });
       }
-      
     },
     load() {
       this.loading = !this.loading
-    }
-  }
+    },
+    ...mapActions(
+      "snackbar", 
+      {
+        snackOn: 'snackOn',
+        setMessage(dispatch) { dispatch("setMessage", this.message) },
+      }
+    ),
+  },
 
 }
 </script>
