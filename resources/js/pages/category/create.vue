@@ -95,9 +95,6 @@ export default {
         });
       }
     },
-    load() {
-      this.loading = !this.loading
-    },
     ...mapActions(
       "snackbar", 
       {

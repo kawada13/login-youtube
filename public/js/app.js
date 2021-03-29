@@ -2278,9 +2278,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.loading = false;
         });
       }
-    },
-    load: function load() {
-      this.loading = !this.loading;
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("snackbar", {
     snackOn: 'snackOn',
