@@ -26,23 +26,13 @@ const mutations = {
 const actions = {
 
   async create({commit, state}, ) {
-    // const res = await axios.post('/api/category', {name: state.createName})
-    // console.log(res.status);
-    // if(res.status === 200) {
-    //   commit("setApiStatus", true);
-    //   return false;
-    //  }
-    //  console.log("きた");
-    // commit("setApiStatus", false);
 
     await axios.post('/api/category', {name: state.createName})
     .then(res => {
-      console.log(111);
       commit("setApiStatus", true);
       return false;
     })
     .catch(e => {
-      console.log(222);
       commit("setApiStatus", false);
     })
   },
