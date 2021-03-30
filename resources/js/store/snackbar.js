@@ -25,7 +25,7 @@ const actions = {
   snackOff({ commit }) {
     commit("disableSaved")
   },
-  setMessage({commit}, message) {
+  setSnackMessage({commit}, message) {
     commit('setMessage', message)
   }
 }

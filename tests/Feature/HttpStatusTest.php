@@ -21,6 +21,8 @@ class HttpStatusTest extends TestCase
             'name'  => 'c',
             'slug'  => 'fd',
         ]);
+
+        print_r($response);
         $response->assertStatus(200);
      }
 }

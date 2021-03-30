@@ -54,55 +54,66 @@ export default {
   data() {
     return {
       loading: false,
-      createName:'',
-      error: false,
-      message: '',
     }
   },
   components: {
     Loader
   },
   methods: {
-    upload() {
-      this.error = false
-      this.loading = true
+    async upload() {
+      this.loading = false
 
       if (!this.$refs.form.validate()) {
           this.loading = false
           return
         }
 
-      if (this.$refs.form.validate()) {
-        axios.post('/api/category', {name: this.createName})
-        .then(res => {
-          console.log(res);
-          this.createName = '';
-          this.message = '保存しました'
-          // バリデーションエラー解除
-          this.$refs.form.resetValidation()
-        })
-        .catch(e => {
-            console.log(e.response.status)
-            if(e.response.status == 500) {
-              this.error = true
-              this.message = '入力形式に不適切な箇所があり保存できません。'
-            }
-        })
-        .finally(() => {
-          this.setMessage()
-          this.snackOn()
-          this.loading = false
-        });
-      }
+       await this.$store.dispatch('product/create')
+
+       if(this.apiStatus) {
+         this.$store.dispatch('snackbar/setSnackMessage', '保存しました。')
+         this.$store.dispatch('product/resetCreateName')
+         this.$store.dispatch('product/setError', false)
+         this.$refs.form.resetValidation()
+       } else {
+         this.$store.dispatch('snackbar/setSnackMessage', '入力形式に不適切な箇所があり保存できません。')
+         this.$store.dispatch('product/setError', true)
+       }
+
+       this.snackOn()
+
+       this.loading = false
+
     },
     ...mapActions(
       "snackbar", 
       {
         snackOn: 'snackOn',
-        setMessage(dispatch) { dispatch("setMessage", this.message) },
+        setSnackMessage(dispatch) { dispatch("setMessage", this.message) },
       }
     ),
   },
+  computed: {
+    apiStatus () {
+      return this.$store.state.product.apiStatus
+    },
+    createName: {
+      get(){
+        return this.$store.state.product.createName
+      },
+      set(val) {
+        return this.$store.dispatch('product/setCreateName', val)
+      }
+    },
+    error: {
+      get(){
+        return this.$store.state.product.error
+      },
+      set(val) {
+        return this.$store.state.product.error
+      }
+    },
+  }
 
 }
 </script>

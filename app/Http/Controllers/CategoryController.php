@@ -39,16 +39,13 @@ class CategoryController extends Controller
      */
     public function store(Categories $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'required',
-        // ]);
 
         $category = Category::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
         ]);
 
-        return response()->json('成功だせ', 200);
+        return response()->json('成功', 200);
     }
 
     /**
