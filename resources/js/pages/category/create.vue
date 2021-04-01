@@ -85,7 +85,7 @@ export default {
        this.loading = false
     },
     ...mapActions(
-      "snackbar", 
+      "snackbar",
       {
         snackOn: 'snackOn',
         setSnackMessage(dispatch) { dispatch("setMessage", this.message) },
