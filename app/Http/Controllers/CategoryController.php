@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Http\Requests\Categories;
+use App\Http\Requests\CategoryRequest;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -37,9 +37,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Categories $request)
+    public function store(CategoryRequest $request)
     {
-
+        
         $category = Category::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),

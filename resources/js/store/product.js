@@ -29,10 +29,12 @@ const actions = {
 
     await axios.post('/api/category', {name: state.createName})
     .then(res => {
+      console.log(res);
       commit("setApiStatus", true);
       return false;
     })
     .catch(e => {
+      console.log(e.response);
       commit("setApiStatus", false);
     })
   },
