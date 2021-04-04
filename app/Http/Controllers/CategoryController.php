@@ -45,6 +45,7 @@ class CategoryController extends Controller
         ]);
 
         return response()->json('成功', 200);
+        
     }
 
     /**
