@@ -6,6 +6,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\CategoryRequest;
+use Illuminate\Support\Facades\DB;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -39,13 +40,28 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = Category::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-        ]);
+        // $category = Category::create([
+        //     'name' => $request->name,
+        //     'slug' => Str::slug($request->name),
+        // ]);
 
-        return response()->json('成功', 200);
-        
+        // return response()->json('成功', 200);
+
+
+        DB::beginTransaction();
+        try {
+            $category = Category::create([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+            ]);
+            DB::commit();
+            return response()->json('成功', 200);
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            return response()->json('失敗した', 500);
+        }
+
     }
 
     /**
