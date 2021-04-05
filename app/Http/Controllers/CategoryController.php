@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\CategoryRequest;
@@ -40,13 +41,6 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        // $category = Category::create([
-        //     'name' => $request->name,
-        //     'slug' => Str::slug($request->name),
-        // ]);
-
-        // return response()->json('成功', 200);
-
 
         DB::beginTransaction();
         try {
