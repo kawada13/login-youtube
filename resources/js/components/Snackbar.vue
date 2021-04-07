@@ -36,6 +36,7 @@
       },
       set() {
         return this.$store.dispatch('snackbar/snackOff')
+        
       }
     }
    },
