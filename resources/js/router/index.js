@@ -27,7 +27,7 @@ const routes = new VueRouter({
       name:'create-category',
     },
     {
-      path: '/category/edit/:slug',
+      path: '/category/edit/:id',
       component: EditCategory,
       name:'edit-category',
     },

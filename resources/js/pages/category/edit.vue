@@ -86,15 +86,16 @@ export default {
         setSnackMessage(dispatch) { dispatch("setMessage", this.message) },
       }
     ),
+    async loadCategory() {
+      console.log(2121);
+        // await this.$store.dispatch('product/loadCategories')
+     },
   },
   computed: {
     ...mapState(
       "product",
       { apiStatus: state => state.apiStatus }
     ),
-    // apiStatus () {
-    //   return this.$store.state.product.apiStatus
-    // },
     createName: {
       get(){
         return this.$store.state.product.createName
@@ -111,6 +112,13 @@ export default {
         return this.$store.state.product.error
       }
     },
+    mounted() {
+      this.loading = true
+      Promise.all([
+        this.loadCategory()
+      ])
+      this.loading = false
+    }
   }
 
 }

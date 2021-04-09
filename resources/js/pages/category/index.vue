@@ -47,7 +47,7 @@
               <v-btn
                 depressed
                 color="primary"
-                @click="$router.push({ name: 'edit-category', params: { slug: item.slug } })"
+                @click="$router.push({ name: 'edit-category', params: { id: item.id } })"
               >
                 Edit
               </v-btn>
