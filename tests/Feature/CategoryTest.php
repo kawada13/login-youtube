@@ -25,25 +25,21 @@ class CategoryTest extends TestCase
 
         $response = $this->json('POST', route('category.store'), $data);
 
-       
-
         $category = Category::first();
         $this->assertEquals($data['name'], $category->name);
 
         $response
             ->assertStatus(200)
-            ->assertJson(['message' => '成功した']);
+            ->assertJson(['message' => '成功']);
 
+    }
 
-        // factory(Category::class)->create();
+    public function test_正しい構造のjsonを返却する()
+    {
+        $response = $this->json('GET', route('category.index'));
 
-        // $category = Category::first();
-
-        // $response = $this->json('POST', route('category.store'), [
-        //     'name' => 
-        // ]);
-
-
-
+        $response
+            ->assertStatus(200)
+            ->assertJson(['message' => '成功']);
     }
 }

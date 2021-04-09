@@ -23,7 +23,7 @@ const mutations = {
     state.apiStatus = status;
  },
   setCategories(state, lists) {
-    console.log(lists);
+    state.categories = [],
     state.categories.push(...lists)
   }
 }

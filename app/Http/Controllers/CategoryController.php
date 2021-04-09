@@ -62,17 +62,17 @@ class CategoryController extends Controller
             ]);
             DB::commit();
 
-            $a = Category::all();
+            $categories = Category::all();
 
             return response()->json([
-                'lists' => $a,
-                'message' => '成功した'
+                'category_list' => $categories,
+                'message' => '成功'
             ],200);
         }
         catch (\Exception $e) {
             DB::rollback();
             return response()->json([
-                'message' => '失敗した'
+                'message' => '失敗'
             ],500);
         }
 
