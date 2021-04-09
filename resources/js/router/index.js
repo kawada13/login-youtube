@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 import Home from '../pages/HomeComponent.vue'
 import CategoryList from '../pages/category/index.vue'
 import CreateCategory from '../pages/category/create.vue'
+import EditCategory from '../pages/category/edit.vue'
 
 const routes = new VueRouter({
   mode:'history',
@@ -25,8 +26,12 @@ const routes = new VueRouter({
       component: CreateCategory,
       name:'create-category',
     },
+    {
+      path: '/category/edit/:slug',
+      component: EditCategory,
+      name:'edit-category',
+    },
   ]
-}) 
+})
 
 export default routes;
- 

@@ -37,16 +37,17 @@
         </thead>
         <tbody>
           <tr
-            v-for="item in categories"
+            v-for="(item, index) in categories"
             :key="item.name"
           >
-            <td>{{ item.id }}</td>
+            <td>{{ index + 1 }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.slug }}</td>
             <td>
               <v-btn
                 depressed
                 color="primary"
+                @click="$router.push({ name: 'edit-category', params: { slug: item.slug } })"
               >
                 Edit
               </v-btn>

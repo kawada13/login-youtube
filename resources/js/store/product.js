@@ -47,7 +47,7 @@ const actions = {
   async loadCategories({commit}) {
     await axios.get('/api/category')
     .then(res => {
-      console.log(res.data.category_list);
+      // console.log(res.data.category_list);
       commit("setApiStatus", true);
       commit("setCategories", res.data.category_list);
     })

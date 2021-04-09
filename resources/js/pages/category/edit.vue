@@ -3,7 +3,7 @@
     
     <v-card color="grey lighten-2">
       <div class="justify-space-around d-flex">
-       <v-card-title>Product Category</v-card-title>
+       <v-card-title>Edit Category</v-card-title>
        <v-card-title>
          <v-btn
           outlined
