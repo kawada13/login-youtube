@@ -20,7 +20,19 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $categories = Category::latest()->get();
+
+            return response()->json([
+                'category_list' => $categories,
+                'message' => '成功'
+            ],200);
+        }
+        catch(\Exception $e) {
+            return response()->json([
+                'message' => '取得できませんでした。'
+            ],500);
+        }
     }
 
     /**

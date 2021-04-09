@@ -17,7 +17,7 @@
       </div>
     </v-card>
 
-    <v-simple-table>
+    <v-simple-table v-show="!loading">
       <template v-slot:default>
         <thead>
           <tr>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="item in desserts"
+            v-for="item in categories"
             :key="item.name"
           >
             <td>{{ item.id }}</td>
@@ -61,37 +61,44 @@
         </tbody>
       </template>
     </v-simple-table>
+    <div v-show="loading">
+      <Loader />
+    </div>
   </div>
 </template>
 
 
 <script>
+import Loader from '../../components/Loader.vue'
+
+import { mapState, mapActions } from "vuex"
+
   export default {
-    data () {
+    data() {
       return {
-        desserts: [
-          {
-            id: 1,
-            name: 'Frozen Yogurt',
-            slug: 'fashion',
-          },
-          {
-            id: 2,
-            name: 'Frozen Yogurt',
-            slug: 'fashion',
-          },
-          {
-            id: 3,
-            name: 'Frozen Yogurt',
-            slug: 'fashion',
-          },
-          {
-            id: 4,
-            name: 'Frozen Yogurt',
-            slug: 'fashion',
-          },
-        ],
+        loading: false,
       }
     },
-  }
+    components: {
+      Loader
+    },
+    computed: {
+        ...mapState(
+        "product",
+        { categories: state => state.categories }
+      ),
+    },
+    methods: {
+      async loadCategories() {
+        await this.$store.dispatch('product/loadCategories')
+      },
+    },
+    mounted() {
+      this.loading = true
+      Promise.all([
+        this.loadCategories()
+      ])
+      this.loading = false
+    }
+   }
 </script>

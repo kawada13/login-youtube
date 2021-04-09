@@ -4,6 +4,7 @@ const state = {
   createName: '',
   error: false,
   apiStatus: null,
+  categories: []
 }
 
 const getters = {}
@@ -21,6 +22,10 @@ const mutations = {
   setApiStatus(state, status) {
     state.apiStatus = status;
  },
+  setCategories(state, lists) {
+    console.log(lists);
+    state.categories.push(...lists)
+  }
 }
 
 const actions = {
@@ -37,6 +42,20 @@ const actions = {
       console.log(e.response);
       commit("setApiStatus", false);
     })
+  },
+
+  async loadCategories({commit}) {
+    await axios.get('/api/category')
+    .then(res => {
+      console.log(res.data.category_list);
+      commit("setApiStatus", true);
+      commit("setCategories", res.data.category_list);
+    })
+    .catch(e => {
+      console.log(e.response);
+      commit("setApiStatus", false);
+    })
+
   },
 
   setError({commit}, judge) {

@@ -93,9 +93,13 @@ export default {
     ),
   },
   computed: {
-    apiStatus () {
-      return this.$store.state.product.apiStatus
-    },
+    ...mapState(
+      "product",
+      { apiStatus: state => state.apiStatus }
+    ),
+    // apiStatus () {
+    //   return this.$store.state.product.apiStatus
+    // },
     createName: {
       get(){
         return this.$store.state.product.createName
