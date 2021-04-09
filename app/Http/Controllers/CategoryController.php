@@ -97,7 +97,16 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        if($category) {
+            return response()->json([
+                'category' => $category,
+                'message' => '成功'
+            ],200);
+        } else {
+            return response()->json([
+                'message' => '失敗'
+            ],404);
+        }
     }
 
     /**
