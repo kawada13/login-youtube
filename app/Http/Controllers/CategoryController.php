@@ -49,11 +49,19 @@ class CategoryController extends Controller
                 'slug' => Str::slug($request->name),
             ]);
             DB::commit();
-            return response()->json('成功', 200);
+
+            $a = Category::all();
+
+            return response()->json([
+                'lists' => $a,
+                'message' => '成功した'
+            ],200);
         }
         catch (\Exception $e) {
             DB::rollback();
-            return response()->json('失敗した', 500);
+            return response()->json([
+                'message' => '失敗した'
+            ],500);
         }
 
     }
