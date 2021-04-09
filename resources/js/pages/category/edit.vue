@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <v-card color="grey lighten-2">
       <div class="justify-space-around d-flex">
        <v-card-title>Edit Category</v-card-title>
@@ -20,8 +19,8 @@
 
     <div class="mt-4" v-show="!loading">
       <v-form ref="form" @submit.prevent='upload'>
-        <v-text-field 
-          placeholder="Category name" 
+        <v-text-field
+          placeholder="Category name"
           v-model="createName"
           :rules="[formRules.required]"
          >
