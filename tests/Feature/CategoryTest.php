@@ -33,6 +33,27 @@ class CategoryTest extends TestCase
             ->assertJson(['message' => '成功']);
 
     }
+    public function test_update()
+    {
+
+        factory(Category::class)->create();
+        $category = Category::first();
+
+        $params = [
+            'name' => 'editName',
+        ];
+
+        $response = $this->json('PUT', route('category.update', [
+            'category' => $category->id,
+        ]), $params);
+
+        $this->assertDatabaseHas('categories', $params);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson(['message' => '成功']);
+
+    }
 
     public function test_index()
     {

@@ -116,9 +116,26 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $category->name = $request->name;
+            $category->slug = Str::slug($request->name);
+            $category->save();
+            DB::commit();
+
+            return response()->json([
+                'category' => $category,
+                'message' => '成功'
+            ],200);
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => '失敗'
+            ],500);
+        }
     }
 
     /**
