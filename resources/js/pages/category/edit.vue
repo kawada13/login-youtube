@@ -61,21 +61,18 @@ export default {
           this.loading = false
           return
         }
-
-       await this.$store.dispatch('product/create')
+      let id = this.$route.params.id
+       await this.$store.dispatch('product/update', id)
 
        if(this.apiStatus) {
          this.$store.dispatch('snackbar/setSnackMessage', '保存しました。')
-         this.$store.dispatch('product/resetCreateName')
          this.$store.dispatch('product/setError', false)
          this.$refs.form.resetValidation()
        } else {
          this.$store.dispatch('snackbar/setSnackMessage', '入力形式に不適切な箇所があり保存できません。')
          this.$store.dispatch('product/setError', true)
        }
-
        this.snackOn()
-
        this.loading = false
     },
     ...mapActions(
@@ -115,6 +112,7 @@ export default {
   },
   mounted() {
       this.loading = true
+      this.$store.dispatch('product/setError', false)
       Promise.all([
         this.loadCategory()
       ])

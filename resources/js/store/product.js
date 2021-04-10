@@ -50,6 +50,19 @@ const actions = {
       commit("setApiStatus", false);
     })
   },
+  async update({commit, state}, id) {
+
+    await axios.put(`/api/category/${id}`, {name: state.Category.name})
+    .then(res => {
+      console.log(res);
+      commit("setApiStatus", true);
+      return false;
+    })
+    .catch(e => {
+      console.log(e.response);
+      commit("setApiStatus", false);
+    })
+  },
 
   async loadCategories({commit}) {
     await axios.get('/api/category')
