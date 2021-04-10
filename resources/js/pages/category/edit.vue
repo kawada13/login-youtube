@@ -21,11 +21,11 @@
       <v-form ref="form" @submit.prevent='upload'>
         <v-text-field
           placeholder="Category name"
-          v-model="createName"
+          v-model="CategoryName"
           :rules="[formRules.required]"
          >
          </v-text-field>
-        <v-btn color="green darken-1" dark type="submit">Create Category</v-btn>
+        <v-btn color="green darken-1" dark type="submit">Update Category</v-btn>
       </v-form>
     </div>
 
@@ -86,8 +86,9 @@ export default {
       }
     ),
     async loadCategory() {
-      console.log(2121);
-        // await this.$store.dispatch('product/loadCategories')
+        let id = this.$route.params.id
+
+        await this.$store.dispatch('product/loadCategory', id)
      },
   },
   computed: {
@@ -95,12 +96,12 @@ export default {
       "product",
       { apiStatus: state => state.apiStatus }
     ),
-    createName: {
+    CategoryName: {
       get(){
-        return this.$store.state.product.createName
+        return this.$store.state.product.Category.name
       },
       set(val) {
-        return this.$store.dispatch('product/setCreateName', val)
+        return this.$store.dispatch('product/editCategory', val)
       }
     },
     error: {
@@ -111,14 +112,14 @@ export default {
         return this.$store.state.product.error
       }
     },
-    mounted() {
+  },
+  mounted() {
       this.loading = true
       Promise.all([
         this.loadCategory()
       ])
       this.loading = false
     }
-  }
 
 }
 </script>

@@ -57,6 +57,7 @@ class CategoryTest extends TestCase
                 'id' => $category->id,
                 'name' => $category->name,
                 'slug' => $category->slug,
+                'message' => '成功'
             ]);
     }
 }

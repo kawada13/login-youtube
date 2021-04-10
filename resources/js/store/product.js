@@ -4,7 +4,8 @@ const state = {
   createName: '',
   error: false,
   apiStatus: null,
-  categories: []
+  categories: [],
+  Category: ''
 }
 
 const getters = {}
@@ -25,6 +26,12 @@ const mutations = {
   setCategories(state, lists) {
     state.categories = [],
     state.categories.push(...lists)
+  },
+  setCategory(state, category) {
+    state.Category = category
+  },
+  editCategory(state, categoryName) {
+    state.Category.name = categoryName
   }
 }
 
@@ -57,6 +64,17 @@ const actions = {
     })
 
   },
+  async loadCategory({commit}, id) {
+    await axios.get(`/api/category/${id}/edit`)
+    .then(res => {
+      console.log(res.data.category);
+      commit("setCategory", res.data.category);
+    })
+    .catch(e => {
+      console.log(e.response);
+    })
+
+  },
 
   setError({commit}, judge) {
     commit("setError", judge);
@@ -66,7 +84,12 @@ const actions = {
   },
   setCreateName({commit}, val) {
     commit('setCreateName', val)
-  }
+  },
+  editCategory({commit}, val) {
+    console.log(val);
+    commit('editCategory', val)
+  },
+  
 }
 
 export default {
