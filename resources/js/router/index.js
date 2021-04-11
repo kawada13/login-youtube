@@ -31,6 +31,11 @@ const routes = new VueRouter({
       component: EditCategory,
       name:'edit-category',
     },
+    {
+      path: '*',
+      component: Home,
+      name:'home',
+    },
   ]
 })
 
