@@ -2,7 +2,6 @@ import Axios from "axios"
 
 const state = {
   createName: '',
-  error: false,
   apiStatus: null,
   categories: [],
   Category: ''
@@ -16,9 +15,6 @@ const mutations = {
   },
   resetCreateName(state) {
     state.createName = ''
-  },
-  setError(state, judge) {
-    state.error = judge
   },
   setApiStatus(state, status) {
     state.apiStatus = status;
@@ -99,9 +95,6 @@ const actions = {
 
   },
 
-  setError({commit}, judge) {
-    commit("setError", judge);
-  },
   resetCreateName({commit}) {
     commit('resetCreateName')
   },

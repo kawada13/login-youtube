@@ -66,11 +66,11 @@ export default {
 
        if(this.apiStatus) {
          this.$store.dispatch('snackbar/setSnackMessage', '保存しました。')
-         this.$store.dispatch('product/setError', false)
+         this.$store.dispatch('error/setDupError', false)
          this.$refs.form.resetValidation()
        } else {
          this.$store.dispatch('snackbar/setSnackMessage', '入力形式に不適切な箇所があり保存できません。')
-         this.$store.dispatch('product/setError', true)
+         this.$store.dispatch('error/setDupError', true)
        }
        this.snackOn()
        this.loading = false
@@ -103,16 +103,16 @@ export default {
     },
     error: {
       get(){
-        return this.$store.state.product.error
+        return this.$store.state.product.duplication
       },
       set(val) {
-        return this.$store.state.product.error
+        return this.$store.state.product.duplication
       }
     },
   },
   mounted() {
       this.loading = true
-      this.$store.dispatch('product/setError', false)
+      this.$store.dispatch('error/setDupError', false)
       Promise.all([
         this.loadCategory()
       ])
