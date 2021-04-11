@@ -57,6 +57,8 @@ class CategoryTest extends TestCase
 
     public function test_index()
     {
+        factory(Category::class, 5)->create();
+
         $response = $this->json('GET', route('category.index'));
 
         $response

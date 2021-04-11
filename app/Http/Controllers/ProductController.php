@@ -14,7 +14,19 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $products = Product::latest()->get();
+
+            return response()->json([
+                'product_list' => $products,
+                'message' => '成功'
+            ],200);
+        }
+        catch(\Exception $e) {
+            return response()->json([
+                'message' => '取得できませんでした。'
+            ],500);
+        }
     }
 
     /**
