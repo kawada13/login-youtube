@@ -80,7 +80,7 @@ const actions = {
   async loadCategory({commit}, id) {
     await axios.get(`/api/category/${id}/edit`)
     .then(res => {
-      console.log(res.data.category);
+      // console.log(res.data.category);
       commit("setCategory", res.data.category);
     })
     .catch(e => {

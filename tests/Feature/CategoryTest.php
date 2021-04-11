@@ -81,4 +81,24 @@ class CategoryTest extends TestCase
                 'message' => '成功'
             ]);
     }
+
+    public function test_delete()
+    {
+        factory(Category::class)->create();
+        $category = Category::first();
+
+        $response = $this->json('DELETE', route('category.destroy', [
+            'category' => $category->id,
+        ]));
+
+        $params = [
+            'id' => $category->id
+        ];
+
+        $this->assertDatabaseMissing('categories', $params);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson(['message' => '成功']);
+    }
 }

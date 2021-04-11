@@ -54,6 +54,7 @@
               <v-btn
                 depressed
                 color="error"
+                @click="deleteCategory(item.id)"
               >
                 Delete
               </v-btn>
@@ -93,6 +94,9 @@ import { mapState, mapActions } from "vuex"
       async loadCategories() {
         await this.$store.dispatch('product/loadCategories')
       },
+      async deleteCategory(id) {
+        console.log(id);
+      }
     },
     mounted() {
       this.loading = true
