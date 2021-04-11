@@ -95,7 +95,14 @@ import { mapState, mapActions } from "vuex"
         await this.$store.dispatch('product/loadCategories')
       },
       async deleteCategory(id) {
-        console.log(id);
+        let result = confirm('本当に削除しますか');
+
+        if(result){
+          await this.$store.dispatch('product/deleteCategory', id)
+        　this.loadCategories()
+        }else{
+          console.log('削除をとりやめました');
+        }
       }
     },
     mounted() {

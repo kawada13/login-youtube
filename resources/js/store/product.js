@@ -86,6 +86,16 @@ const actions = {
     .catch(e => {
       console.log(e.response);
     })
+  },
+
+  async deleteCategory({commit}, id) {
+    await axios.delete(`/api/category/${id}`)
+    .then(res => {
+      // console.log(res);
+    })
+    .catch(e => {
+      // console.log(e.response);
+    })
 
   },
 
