@@ -29,7 +29,14 @@
         style="cursor: pointer" 
         @click="$router.push({ name: 'category-list' })"
         >
-        Product Category  
+        Category List
+        </v-toolbar-title>
+      <v-toolbar-title 
+        class="ml-5"
+        style="cursor: pointer" 
+        @click="$router.push({ name: 'product-list' })"
+        >
+        Product List  
         </v-toolbar-title>
 
       <!-- <v-btn icon>
