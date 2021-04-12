@@ -25,4 +25,25 @@ class ProductTest extends TestCase
             ->assertStatus(200)
             ->assertJson(['message' => '成功']);
     }
+
+    public function test_store()
+    {
+
+        $data = [
+            'title' => 'title',
+            'slug' => 'titt',
+            'price' => 21,
+            'description' => 'description'
+        ];
+
+        $response = $this->json('POST', route('product.store'), $data);
+
+        $product = Product::first();
+        $this->assertEquals($data['title'], $product->title);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson(['message' => '成功']);
+
+    }
 }

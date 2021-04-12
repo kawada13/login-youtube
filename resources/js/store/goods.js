@@ -39,9 +39,10 @@ const mutations = {
 
 const actions = {
 
-  async create({commit, state}, ) {
+  async create({commit, state}, product) {
 
-    await axios.post('/api/category', {name: state.createName})
+    console.log(product);
+    await axios.post('/api/product', product)
     .then(res => {
       console.log(res);
       commit("setApiStatus", true);

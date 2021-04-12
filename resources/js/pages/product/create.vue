@@ -33,11 +33,11 @@
           :rules="[formRules.required]"
          >
          </v-text-field>
-        <v-text-field 
+        <!-- <v-text-field 
           placeholder="Product image" 
           v-model="product.image"
          >
-         </v-text-field>
+         </v-text-field> -->
         <v-text-field 
           placeholder="Product description" 
           v-model="product.description"
@@ -69,7 +69,7 @@ export default {
       product: {
         title: '',
         price: null,
-        imageUrl: '',
+        // imageUrl: '',
         description: ''
       }
     }
@@ -86,11 +86,11 @@ export default {
           return
         }
 
-       await this.$store.dispatch('product/create')
+       await this.$store.dispatch('goods/create', this.product)
 
        if(this.apiStatus) {
          this.$store.dispatch('snackbar/setSnackMessage', '保存しました。')
-         this.$store.dispatch('product/resetCreateName')
+         this.resetData()
          this.$store.dispatch('error/setDupError', false)
          this.$refs.form.resetValidation()
        } else {
@@ -109,10 +109,15 @@ export default {
         // setSnackMessage(dispatch) { dispatch("setMessage", this.message) },
       }
     ),
+    resetData() {
+      this.product.title = ''
+      this.product.price = null
+      this.product.description = ''
+    }
   },
   computed: {
     ...mapState(
-      "product",
+      "goods",
       { apiStatus: state => state.apiStatus }
     ),
     // apiStatus () {

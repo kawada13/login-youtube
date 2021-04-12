@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -45,9 +47,32 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        // dd($request);
+        DB::beginTransaction();
+        try {
+            $product = Product::create([
+                'title' => $request->title,
+                'slug' => $request->title,
+                'price' => $request->price,
+                'description' => $request->description,
+            ]);
+            DB::commit();
+
+            $products = Product::all();
+
+            return response()->json([
+                'product_list' => $products,
+                'message' => '成功'
+            ],200);
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => '失敗'
+            ],500);
+        }
     }
 
     /**
