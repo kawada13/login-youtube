@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = Product::latest()->get();
+            $products = Product::with('category')->latest()->get();
 
             return response()->json([
                 'product_list' => $products,
@@ -57,6 +57,7 @@ class ProductController extends Controller
                 'slug' => $request->title,
                 'price' => $request->price,
                 'description' => $request->description,
+                'category_id' => $request->category_id,
             ]);
             DB::commit();
 

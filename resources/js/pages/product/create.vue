@@ -20,6 +20,14 @@
 
     <div class="mt-4" v-show="!loading">
       <v-form ref="form" @submit.prevent='upload'>
+        <v-select
+          item-text="name"
+          item-value="id"
+          :items="categories"
+          label="カテゴリーを選択してください"
+          v-model="product.category_id"
+          :rules="[formRules.required]"
+        ></v-select>
         <v-text-field 
           placeholder="Product title" 
           v-model="product.title"
@@ -70,7 +78,8 @@ export default {
         title: '',
         price: null,
         // imageUrl: '',
-        description: ''
+        description: '',
+        category_id: null
       }
     }
   },
@@ -78,6 +87,9 @@ export default {
     Loader
   },
   methods: {
+    async loadCategories() {
+        await this.$store.dispatch('product/loadCategories')
+      },
     async upload() {
       this.loading = false
 
@@ -113,24 +125,18 @@ export default {
       this.product.title = ''
       this.product.price = null
       this.product.description = ''
+      this.product.category_id = null
     }
   },
   computed: {
     ...mapState(
+        "product",
+        { categories: state => state.categories }
+      ),
+    ...mapState(
       "goods",
       { apiStatus: state => state.apiStatus }
     ),
-    // apiStatus () {
-    //   return this.$store.state.product.apiStatus
-    // },
-    // title: {
-    //   get(){
-    //     return this.$store.state.goods.title
-    //   },
-    //   set(val) {
-    //     return this.$store.dispatch('goods/setProduct', val)
-    //   }
-    // },
     error: {
       get(){
         return this.$store.state.error.duplication
@@ -142,6 +148,9 @@ export default {
   },
   mounted() {
       this.loading = true
+      Promise.all([
+        this.loadCategories()
+      ])
       this.$store.dispatch('error/setDupError', false)
       this.$refs.form.resetValidation()
       this.loading = false

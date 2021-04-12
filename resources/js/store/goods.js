@@ -70,7 +70,7 @@ const actions = {
   async loadProducts({commit}) {
     await axios.get('/api/product')
     .then(res => {
-      // console.log(res.data.category_list);
+      console.log(res.data.product_list);
       commit("setApiStatus", true);
       commit("loadProducts", res.data.product_list);
     })

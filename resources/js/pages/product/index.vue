@@ -37,6 +37,9 @@
               Description
             </th>
             <th class="text-left">
+              Category
+            </th>
+            <th class="text-left">
               Action
             </th>
           </tr>
@@ -47,8 +50,11 @@
             :key="item.name"
           >
             <td>{{ index + 1 }}</td>
-            <td>{{ item.name }}</td>
+            <td>{{ item.title }}</td>
             <td>{{ item.slug }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.category.name }}</td>
             <td>
               <v-btn
                 depressed
