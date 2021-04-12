@@ -30,18 +30,21 @@ class ProductTest extends TestCase
     public function test_store()
     {
 
-        $data = [
+        factory(Category::class)->create();
+        $category = Category::first();
+
+        $params = [
             'title' => 'title',
             'slug' => 'titt',
             'price' => 21,
             'description' => 'description',
-            'category_id' => 3,
+            'category_id' => $category->id,
         ];
 
-        $response = $this->json('POST', route('product.store'), $data);
-
+        $response = $this->json('POST', route('product.store'), $params);
+        
         $product = Product::first();
-        $this->assertEquals($data['title'], $product->title);
+        $this->assertEquals($params['title'], $product->title);
 
         $response
             ->assertStatus(200)
