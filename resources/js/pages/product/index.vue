@@ -9,7 +9,7 @@
         outlined
         rounded
         color="primary"
-        @click="$router.push({ name: 'product-category' })"
+        @click="$router.push({ name: 'create-product' })"
       >
         Create Product
       </v-btn>

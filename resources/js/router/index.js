@@ -9,6 +9,7 @@ import CreateCategory from '../pages/category/create.vue'
 import EditCategory from '../pages/category/edit.vue'
 
 import ProductList from '../pages/product/index.vue'
+import CreateProduct from '../pages/product/create.vue'
 
 const routes = new VueRouter({
   mode:'history',
@@ -40,7 +41,7 @@ const routes = new VueRouter({
     },
     {
       path: '/product/create',
-      // component: CreateProduct,
+      component: CreateProduct,
       name:'create-product',
     },
     {

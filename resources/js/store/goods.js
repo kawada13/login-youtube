@@ -1,37 +1,39 @@
 import Axios from "axios"
 
 const state = {
-  createName: '',
-  error: false,
+  title: '',
+  price: null,
+  imageUrl: '',
+  description: '',
   apiStatus: null,
   products: [],
-  Category: ''
+  Product: {}
 }
 
 const getters = {}
 
 const mutations = {
-  setCreateName(state, val) {
+  setTitle(state, val) {
     state.createName = val
   },
-  resetCreateName(state) {
-    state.createName = ''
-  },
-  setError(state, judge) {
-    state.error = judge
+  reset(state) {
+    state.title = ''
+    state.price = null
+    state.imageUrl = ''
+    state.description = ''
   },
   setApiStatus(state, status) {
     state.apiStatus = status;
  },
-  setProducts(state, lists) {
+  loadProducts(state, lists) {
     state.products = [],
     state.products.push(...lists)
   },
-  setCategory(state, category) {
-    state.Category = category
+  setProduct(state, val) {
+    state.Product = category
   },
-  editCategory(state, categoryName) {
-    state.Category.name = categoryName
+  editProduct(state, categoryName) {
+    state.Product.name = categoryName
   }
 }
 
@@ -52,7 +54,7 @@ const actions = {
   },
   async update({commit, state}, id) {
 
-    await axios.put(`/api/category/${id}`, {name: state.Category.name})
+    await axios.put(`/api/category/${id}`, {name: state.Product.name})
     .then(res => {
       console.log(res);
       commit("setApiStatus", true);
@@ -69,7 +71,7 @@ const actions = {
     .then(res => {
       // console.log(res.data.category_list);
       commit("setApiStatus", true);
-      commit("setProducts", res.data.product_list);
+      commit("loadProducts", res.data.product_list);
     })
     .catch(e => {
       console.log(e.response);
@@ -77,18 +79,18 @@ const actions = {
     })
 
   },
-  async loadCategory({commit}, id) {
+  async loadProduct({commit}, id) {
     await axios.get(`/api/category/${id}/edit`)
     .then(res => {
       // console.log(res.data.category);
-      commit("setCategory", res.data.category);
+      commit("setProduct", res.data.category);
     })
     .catch(e => {
       console.log(e.response);
     })
   },
 
-  async deleteCategory({commit}, id) {
+  async deleteProduct({commit}, id) {
     await axios.delete(`/api/category/${id}`)
     .then(res => {
       // console.log(res);
@@ -99,18 +101,16 @@ const actions = {
 
   },
 
-  setError({commit}, judge) {
-    commit("setError", judge);
+  reset({commit}) {
+    commit('reset')
   },
-  resetCreateName({commit}) {
-    commit('resetCreateName')
+  setProduct({commit}, val) {
+    // console.log(val);
+    commit('setProduct', val)
   },
-  setCreateName({commit}, val) {
-    commit('setCreateName', val)
-  },
-  editCategory({commit}, val) {
+  editProduct({commit}, val) {
     console.log(val);
-    commit('editCategory', val)
+    commit('editProduct', val)
   },
   
 }
