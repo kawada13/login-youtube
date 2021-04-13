@@ -16,6 +16,14 @@ class ProductTest extends TestCase
      *
      * @return void
      */
+    public function testFactoryable()
+    {
+        $eloquent = app(Product::class);
+        $this->assertEmpty($eloquent->get()); // 初期状態では空であることを確認
+        $entity = factory(Product::class)->create(); // 先程作ったファクトリーでレコード生成
+        $this->assertNotEmpty($eloquent->get()); // 再度getしたら中身が空ではないことを確認し、ファクトリ可能であることを保証
+    }
+    
     public function test_index()
     {
         factory(Product::class, 5)->create();
