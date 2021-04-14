@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Category;
+use App\Product;
 
 class CategoryTest extends TestCase
 {
@@ -18,9 +19,22 @@ class CategoryTest extends TestCase
     public function testFactoryable()
     {
         $eloquent = app(Category::class);
-        $this->assertEmpty($eloquent->get()); // 初期状態では空であることを確認
-        $entity = factory(Category::class)->create(); // 先程作ったファクトリーでレコード生成
-        $this->assertNotEmpty($eloquent->get()); // 再度getしたら中身が空ではないことを確認し、ファクトリ可能であることを保証
+        $this->assertEmpty($eloquent->get());
+        $entity = factory(Category::class)->create();
+        $this->assertNotEmpty($eloquent->get());
+    }
+
+    public function testCategoryHasManyProducts()
+    {
+        $count = 5;
+        $categoryEloquent = app(Category::class);
+        $productEloquent = app(Product::class);
+        $category = factory(Category::class)->create(); // アーティストを作成
+        $products = factory(Product::class, $count)->create([
+            'category_id' => $category->id,
+        ]); // アーティストに紐づくアルバムレコードを作成 （create の引数に指定するとその値でデータ作成される）
+        // refresh() で再度同じレコードを取得しなおし、リレーション先の件数が作成した件数と一致することを確認し、リレーションが問題ないことを保証
+        $this->assertEquals($count, count($category->refresh()->products));
     }
 
     public function test_store()
@@ -41,6 +55,8 @@ class CategoryTest extends TestCase
             ->assertJson(['message' => '成功']);
 
     }
+
+    
     public function test_update()
     {
 

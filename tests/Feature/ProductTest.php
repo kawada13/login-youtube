@@ -23,7 +23,17 @@ class ProductTest extends TestCase
         $entity = factory(Product::class)->create(); // 先程作ったファクトリーでレコード生成
         $this->assertNotEmpty($eloquent->get()); // 再度getしたら中身が空ではないことを確認し、ファクトリ可能であることを保証
     }
-    
+    public function testProductBelongsToCategory()
+    {
+        $categoryEloquent = app(Category::class);
+        $productEloquent = app(Product::class);
+        $category = factory(Category::class)->create();
+        $product = factory(Product::class)->create([
+            'category_id' => $category->id,
+        ]);
+        $this->assertNotEmpty($product->category);
+    }
+
     public function test_index()
     {
         factory(Product::class, 5)->create();
