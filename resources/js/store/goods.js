@@ -113,8 +113,8 @@ const actions = {
     console.log(val);
     commit('editProduct', val)
   },
-  
 }
+
 
 export default {
   namespaced: true,
