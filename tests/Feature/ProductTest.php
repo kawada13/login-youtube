@@ -69,4 +69,58 @@ class ProductTest extends TestCase
             ->assertJson(['message' => '成功']);
 
     }
+
+    public function test_edit()
+    {
+        factory(Category::class)->create();
+        $category = Category::first();
+
+        $product = factory(Product::class)->create([
+            'category_id' => $category->id,
+        ]);
+
+        $response = $this->json('GET', route('product.edit', [
+            'product' => $product->id,
+        ]));
+
+        $response->assertStatus(200)
+            ->assertJsonFragment([ //レスポンスjsonに以下の内容を含む
+                'id' => $product->id,
+                'title' => $product->title,
+                'slug' => $product->slug,
+                'price' => $product->price,
+                'description' => $product->description,
+                'category_id' => $product->category_id,
+                'message' => '成功'
+            ]);
+    }
+
+    public function test_update()
+    {
+
+        factory(Category::class)->create();
+        $category = Category::first();
+
+        $product = factory(Product::class)->create([
+            'category_id' => $category->id,
+        ]);
+
+        $params = [
+            'title' => 'editTitle',
+            'price' => 32,
+            'description' => 'editDescription',
+        ];
+
+        $response = $this->json('PUT', route('product.update', [
+            'product' => $product->id,
+        ]), $params);
+
+
+        $this->assertDatabaseHas('products', $params);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson(['message' => '成功']);
+
+    }
 }

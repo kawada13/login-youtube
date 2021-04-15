@@ -49,7 +49,6 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        // dd($request);
         DB::beginTransaction();
         try {
             $product = Product::create([
@@ -95,7 +94,16 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        if($product) {
+            return response()->json([
+                'product' => $product,
+                'message' => '成功'
+            ],200);
+        } else {
+            return response()->json([
+                'message' => '失敗'
+            ],404);
+        }
     }
 
     /**
@@ -105,9 +113,29 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+
+        DB::beginTransaction();
+        try {
+            $product->title = $request->title;
+            $product->slug = $request->title;
+            $product->price = $request->price;
+            $product->description = $request->description;
+            $product->save();
+            DB::commit();
+
+            return response()->json([
+                'product' => $product,
+                'message' => '成功'
+            ],200);
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => '失敗'
+            ],500);
+        }
     }
 
     /**
