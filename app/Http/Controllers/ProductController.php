@@ -116,12 +116,15 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
 
+        // dd($request->title);
+
         DB::beginTransaction();
         try {
             $product->title = $request->title;
             $product->slug = $request->title;
             $product->price = $request->price;
             $product->description = $request->description;
+            $product->category_id = $request->category_id;
             $product->save();
             DB::commit();
 

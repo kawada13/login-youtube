@@ -30,7 +30,7 @@ const mutations = {
     state.products.push(...lists)
   },
   setProduct(state, val) {
-    state.Product = category
+    state.Product = val
   },
   editProduct(state, categoryName) {
     state.Product.name = categoryName
@@ -53,9 +53,14 @@ const actions = {
       commit("setApiStatus", false);
     })
   },
-  async update({commit, state}, id) {
-
-    await axios.put(`/api/category/${id}`, {name: state.Product.name})
+  async update({commit, state}, product) {
+    // console.log(product);
+    await axios.put(`/api/product/${product.id}`, {
+      'title': product.title,
+      'price': product.price,
+      'description': product.description,
+      'category_id': product.category_id,
+    })
     .then(res => {
       console.log(res);
       commit("setApiStatus", true);
@@ -70,7 +75,7 @@ const actions = {
   async loadProducts({commit}) {
     await axios.get('/api/product')
     .then(res => {
-      console.log(res.data.product_list);
+      // console.log(res.data.product_list);
       commit("setApiStatus", true);
       commit("loadProducts", res.data.product_list);
     })
@@ -81,10 +86,10 @@ const actions = {
 
   },
   async loadProduct({commit}, id) {
-    await axios.get(`/api/category/${id}/edit`)
+    await axios.get(`/api/product/${id}/edit`)
     .then(res => {
-      // console.log(res.data.category);
-      commit("setProduct", res.data.category);
+      // console.log(res.data);
+      commit("setProduct", res.data.product);
     })
     .catch(e => {
       console.log(e.response);

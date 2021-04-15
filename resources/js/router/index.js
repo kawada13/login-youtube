@@ -10,6 +10,7 @@ import EditCategory from '../pages/category/edit.vue'
 
 import ProductList from '../pages/product/index.vue'
 import CreateProduct from '../pages/product/create.vue'
+import EditProduct from '../pages/product/edit.vue'
 
 const routes = new VueRouter({
   mode:'history',
@@ -46,7 +47,7 @@ const routes = new VueRouter({
     },
     {
       path: '/product/edit/:id',
-      // component: EditProduct,
+      component: EditProduct,
       name:'edit-product',
     },
     {

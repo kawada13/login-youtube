@@ -109,6 +109,7 @@ class ProductTest extends TestCase
             'title' => 'editTitle',
             'price' => 32,
             'description' => 'editDescription',
+            'category_id' => $category->id,
         ];
 
         $response = $this->json('PUT', route('product.update', [
