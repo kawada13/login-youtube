@@ -124,4 +124,28 @@ class ProductTest extends TestCase
             ->assertJson(['message' => '成功']);
 
     }
+
+    public function test_delete()
+    {
+        factory(Category::class)->create();
+        $category = Category::first();
+
+        $product = factory(Product::class)->create([
+            'category_id' => $category->id,
+        ]);
+
+        $response = $this->json('DELETE', route('product.destroy', [
+            'product' => $product->id,
+        ]));
+
+        $params = [
+            'id' => $product->id
+        ];
+
+        $this->assertDatabaseMissing('products', $params);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson(['message' => '成功']);
+    }
 }
