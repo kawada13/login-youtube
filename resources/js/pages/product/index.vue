@@ -110,7 +110,7 @@ import { mapState, mapActions } from "vuex"
         let result = confirm('本当に削除しますか');
 
         if(result){
-          await this.$store.dispatch('product/deleteProduct', id)
+          await this.$store.dispatch('goods/deleteProduct', id)
         　this.loadProducts()
         }else{
           console.log('削除をとりやめました');

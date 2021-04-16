@@ -97,7 +97,7 @@ const actions = {
   },
 
   async deleteProduct({commit}, id) {
-    await axios.delete(`/api/category/${id}`)
+    await axios.delete(`/api/product/${id}`)
     .then(res => {
       // console.log(res);
     })
