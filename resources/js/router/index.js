@@ -12,6 +12,11 @@ import ProductList from '../pages/product/index.vue'
 import CreateProduct from '../pages/product/create.vue'
 import EditProduct from '../pages/product/edit.vue'
 
+// 認証ページ
+
+import Login from '../pages/auth/login.vue'
+
+
 const routes = new VueRouter({
   mode:'history',
   routes: [
@@ -49,6 +54,11 @@ const routes = new VueRouter({
       path: '/product/edit/:id',
       component: EditProduct,
       name:'edit-product',
+    },
+    {
+      path: '/auth/login',
+      component: Login,
+      name:'login',
     },
     {
       path: '*',
