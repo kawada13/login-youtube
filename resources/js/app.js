@@ -13,6 +13,15 @@ Vue.component('Snackbar', require('./components/Snackbar.vue').default);
 
 Vue.use(validation)
 
+// routes.beforeEach((to, from, next) => {
+//     console.log(123);
+//     if(to.path === '/auth/login') {
+//         next('/')
+//     }
+//     next();
+//   })
+  
+
 
 const app = new Vue({
     el: '#app',

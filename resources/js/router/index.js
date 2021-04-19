@@ -17,6 +17,7 @@ import EditProduct from '../pages/product/edit.vue'
 import Login from '../pages/auth/login.vue'
 
 
+
 const routes = new VueRouter({
   mode:'history',
   routes: [

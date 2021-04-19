@@ -6,6 +6,7 @@ import goods from './goods'
 
 import error from './error'
 import snackbar from './snackbar'
+import login from './login'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ const store = new Vuex.Store({
     product,
     goods,
     error,
-    snackbar
+    snackbar,
+    login
   }
 })
 
