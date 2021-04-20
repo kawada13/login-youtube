@@ -52,6 +52,13 @@
         >
         Register 
         </v-toolbar-title>
+      <v-toolbar-title 
+        class="ml-5"
+        style="cursor: pointer" 
+        @click="logout()"
+        >
+        Logout 
+        </v-toolbar-title>
 
       <!-- <v-btn icon>
         <v-icon>mdi-heart</v-icon>
@@ -90,6 +97,11 @@
 </template>
 <script>
 export default {
+  methods:{
+    logout() {
+      console.log('ログアウト');
+    }
+  }
 
 }
 </script>
