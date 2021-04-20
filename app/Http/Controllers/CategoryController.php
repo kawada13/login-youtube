@@ -25,8 +25,10 @@ class CategoryController extends Controller
         }
         catch(\Exception $e) {
             return response()->json([
-                'message' => '取得できませんでした。'
-            ],500);
+                'message' => '取得できませんでした。',
+                'aaa' => 'dgdfgf'
+            ],500,[],
+            JSON_UNESCAPED_UNICODE);
         }
     }
 

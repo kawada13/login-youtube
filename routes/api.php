@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 // Route::post('/login', 'Api\LoginController@login');
 // Route::get('/logout', 'Api\LoginController@logout');
+Route::resource('category', 'CategoryController');
+Route::resource('product', 'ProductController');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -24,5 +26,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::resource('category', 'CategoryController');
-Route::resource('product', 'ProductController');
