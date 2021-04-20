@@ -45,6 +45,13 @@
         >
         Login 
         </v-toolbar-title>
+      <v-toolbar-title 
+        class="ml-5"
+        style="cursor: pointer" 
+        @click="$router.push({ name: 'register' })"
+        >
+        Register 
+        </v-toolbar-title>
 
       <!-- <v-btn icon>
         <v-icon>mdi-heart</v-icon>

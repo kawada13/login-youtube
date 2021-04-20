@@ -15,6 +15,7 @@ import EditProduct from '../pages/product/edit.vue'
 // 認証ページ
 
 import Login from '../pages/auth/login.vue'
+import Register from '../pages/auth/register.vue'
 
 
 
@@ -60,6 +61,11 @@ const routes = new VueRouter({
       path: '/auth/login',
       component: Login,
       name:'login',
+    },
+    {
+      path: '/auth/register',
+      component: Register,
+      name:'register',
     },
     {
       path: '*',
